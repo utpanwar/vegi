@@ -11,11 +11,11 @@ import * as firebase from 'firebase';
   styleUrls: ['./bs-navbar.component.css']
 })
 export class BsNavbarComponent  {
-  // appUser : AppUser;
-  // user$ : Observable<firebase.User>;
-  constructor(public auth : AuthService) {
-    //  auth.appUser$.subscribe(appUser => this.appUser);
-        //  this.user$ = auth.authState;
+  appUser: AppUser;
+
+  constructor(private auth: AuthService) {
+    auth.appUser$
+      .subscribe(appUser => this.appUser = appUser); // Subscribing here to avoid using the async pipe in the html template that causes infinite loop
   }
   logout()
   {

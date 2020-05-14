@@ -59,7 +59,7 @@ import { LoginComponent } from './login/login.component';
       { 
         path : 'admin/products',
         component: AdminProductsComponent ,
-        canActivate:[AuthGuardService] 
+        canActivate:[AuthGuardService , AdminAuthGuardService] 
       }  ,
       {
          path : 'admin/orders', 
