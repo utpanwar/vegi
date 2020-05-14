@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/vegi",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
