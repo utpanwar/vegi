@@ -27,4 +27,8 @@ export class ProductService {
   //   return this.db.list('/product').valueChanges();
   // }
   // this is not work it works in angular 4
+  get(productId)
+  {
+     return this.db.object('/product/' + productId).snapshotChanges();
+  }
 }
