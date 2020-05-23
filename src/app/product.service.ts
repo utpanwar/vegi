@@ -35,4 +35,8 @@ export class ProductService {
    {
      return this.db.object('/product/' + productID).update(product);
    }
+   delete(productId)
+   {
+     return this.db.object('/product/' + productId).remove();
+   }
 }
