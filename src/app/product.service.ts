@@ -31,4 +31,8 @@ export class ProductService {
   {
      return this.db.object('/product/' + productId).snapshotChanges();
   }
+   update(productID,product)
+   {
+     return this.db.object('/product/' + productID).update(product);
+   }
 }
