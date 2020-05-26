@@ -24,11 +24,12 @@ export class ProductFormComponent implements OnInit {
     console.log(this.id);
      if(this.id)
      {
-       this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p.payload.val());
+      //  this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p.payload.val());
       //  as we all see we get key from snapshot MethodCall
       //  if we are want value we use valuechges on services 
-      //  and it like this  this.productService.get(this.id).pipe(take(1))
-      //  .subscribe(p => this.product = p);
+      //  and it like this is also fine 
+       this.productService.get(this.id).pipe(take(1))
+       .subscribe(p => this.product = p);
        console.log(this.id+" error in productform com coming from get");
      } 
    }
