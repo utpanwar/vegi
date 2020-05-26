@@ -3,6 +3,7 @@ import { CategoryService } from './../../category.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { MethodCall } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-form',
@@ -24,7 +25,11 @@ export class ProductFormComponent implements OnInit {
      if(this.id)
      {
        this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p.payload.val());
-       console.log(this.id);
+      //  as we all see we get key from snapshot MethodCall
+      //  if we are want value we use valuechges on services 
+      //  and it like this  this.productService.get(this.id).pipe(take(1))
+      //  .subscribe(p => this.product = p);
+       console.log(this.id+" error in productform com coming from get");
      } 
    }
    save(product)
