@@ -10,7 +10,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let p of products$ | async ">
+        <!-- ngFor only iterable to arrays not object -->
+        <!-- i mean this var in the cpmonent should be products$[]; if we subscribe this there otherwise null value 
+        renders here -->
+        <tr *ngFor="let p of products$ | async "> 
             <!-- if we use valuecHanges method on getAll()
             then this will like this 
             <td>{{p.title}}</td>
