@@ -26,7 +26,9 @@ export class ProductService {
   // {
   //   return this.db.list('/product').valueChanges();
   // }
-  // this is not work it works in angular 4
+  // this is not work it works in angular 4 beacuse valuechanges()  return the only value in the 
+  // form of json array type Observable
+  // but Snapshot returns metadata also like key of firebase .it returns key value pair  
   get(productId)
   {
      return this.db.object('/product/' + productId).snapshotChanges();

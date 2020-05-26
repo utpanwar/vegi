@@ -11,10 +11,16 @@
     </thead>
     <tbody>
         <tr *ngFor="let p of products$ | async ">
+            <!-- if we use valuecHanges method on getAll()
+            then this will like this 
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td> -->
             <td>{{p.$value.title}}</td>
             <td>{{p.$value.price}}</td>
             <td>
                 <a [routerLink]="['/admin/product/', p.$key]">Edit</a>
+                 <!-- we can got thay from only snapshotchanges method  -->
+
             </td>
         </tr>
     </tbody>
