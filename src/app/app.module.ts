@@ -28,7 +28,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
          path : 'admin/orders', 
          component: AdminOrdersComponent ,
          canActivate:[AuthGuardService,AdminAuthGuardService] } ,
-    ])
+    ]),
+    BrowserAnimationsModule,MatCheckboxModule,
   ],
 
   providers: [
