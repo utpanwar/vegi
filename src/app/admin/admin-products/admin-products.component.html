@@ -1,6 +1,12 @@
 <p>
 <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
+<p>
+    <input
+    #query
+    (keyup)="filters(query.value)"
+    type ="text" class="form-control" placeholder="search...">   
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -13,7 +19,7 @@
         <!-- ngFor only iterable to arrays not object -->
         <!-- i mean this var in the cpmonent should be products$[]; if we subscribe this there otherwise null value 
         renders here -->
-        <tr *ngFor="let p of products$ | async "> 
+        <tr *ngFor="let p of filteredProducts "> 
             <!-- if we use valuecHanges method on getAll()
             then this will like this 
             <td>{{p.title}}</td>
