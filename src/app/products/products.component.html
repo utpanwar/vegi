@@ -19,7 +19,7 @@
     </div>
     <div class="col">
         <div class="row">
-            <ng-container *ngFor="let p of product$ | async; let i =index">
+            <ng-container *ngFor="let p of filteredProducts ; let i =index">
             <div class="col"></div>
               <div class="card" style="width: 18rem;">
               <img [src]="p.$value.imageUrl" class="card-img-top" >
