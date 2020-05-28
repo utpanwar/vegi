@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCheckboxModule,MatDialogModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCartComponent } from './product-cart/product-cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     AdminOrdersComponent,
     LoginComponent,
     ProductFormComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductCartComponent
   ],
   imports: [
     BrowserModule,

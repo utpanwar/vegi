@@ -15,7 +15,7 @@ export class ProductsComponent   {
   // product$: any;
   products=[];
   filteredProducts=[];
-  categories$ : any;
+  // categories$ : any;
   category: any;
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
@@ -36,7 +36,7 @@ export class ProductsComponent   {
         this.products
       });
       
-      this.categories$=this.categoryService.getCategories();
+     
     // here we have two asyn call so we dont know which one is executed first so shows blank page on 
     // startup product array is empty we solve this with the switchMap operator
 

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { CategoryService } from './../../category.service';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-product-filter',
   templateUrl: './product-filter.component.html',
   styleUrls: ['./product-filter.component.css']
 })
-export class ProductFilterComponent implements OnInit {
+export class ProductFilterComponent  {
+  categories$;
+@Input('category') category;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private categoryService : CategoryService) 
+  {
+    this.categories$=this.categoryService.getCategories();
   }
+  
+
 
 }
