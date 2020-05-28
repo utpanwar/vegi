@@ -29,7 +29,10 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './login/login.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
+import {MatCheckboxModule,MatDialogModule} from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +87,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
          component: AdminOrdersComponent ,
          canActivate:[AuthGuardService,AdminAuthGuardService] } ,
     ]),
-    BrowserAnimationsModule,MatCheckboxModule,
+    BrowserAnimationsModule,MatCheckboxModule,MatMenuModule,MatDialogModule,
   ],
 
   providers: [
