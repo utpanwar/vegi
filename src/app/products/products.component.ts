@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 export class ProductsComponent   {
 
   product$: any;
-  constructor(private productService : ProductService) 
+  categories$ : any;
+  category: any;
+  constructor(private productService : ProductService, 
+              private categoryService : CategoryService,
+              private route :ActivatedRoute) 
   {
     this.product$=this.productService.getAll();
+    this.categories$=this.categoryService.getCategories();
+    // .subscribe(result =>console.log(result));
+    // console.log(this.categories$)
+    route.queryParamMap
+    .subscribe(params => 
+      this.category = params.get('category'));
+
    }
 
 
