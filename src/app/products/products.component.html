@@ -1,15 +1,39 @@
 <div class="row">
-    <ng-container *ngFor="let p of product$ | async; let i =index">
-    <div class="col"></div>
-      <div class="card" style="width: 18rem;">
-      <img [src]="p.$value.imageUrl" class="card-img-top" >
-       <div class="card-body">
-        <h5 class="card-title">{{p.$value.title}}</h5>
-          <p class="card-text">{{p.$value.price | currency :'USD' :true}}</p>
-          <a href="#" class= " btn btn-primary">Add to cart</a> 
-      </div>
-     </div>
-     <div *ngIf="(i+1) % 3 === 0" class="w-100"></div>
-  </ng-container>
+    <div class="col-3">
+      <!-- <ul class="list-group">
+          <li *ngFor="let c of categories$ | async" class="list-group-item">
+              {{c.name}}
+          </li>
+      </ul> -->
+      <!-- conert list in to cliable and the page -->
+      <div class="list-group">
+        <a 
+        *ngFor="let c of categories$ | async"
+          routerLink="/"
+          [queryParams]="{category : c.key}"
+          [class.active]="category===c.key"
+         class="list-group-item list-group-item-action">
+            {{ c.payload.val().name }}
+        </a>
+    </div> 
+    </div>
+    <div class="col">
+        <div class="row">
+            <ng-container *ngFor="let p of product$ | async; let i =index">
+            <div class="col"></div>
+              <div class="card" style="width: 18rem;">
+              <img [src]="p.$value.imageUrl" class="card-img-top" >
+               <div class="card-body">
+                <h5 class="card-title">{{p.$value.title}}</h5>
+                  <p class="card-text">{{p.$value.price | currency :'USD' :true}}</p>
+                  <a href="#" class= " btn btn-primary">Add to cart</a> 
+              </div>
+             </div>
+             <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>
+          </ng-container>
+        </div>
+    </div>
 </div>
+
+
     
