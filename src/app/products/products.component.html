@@ -7,6 +7,12 @@
       </ul> -->
       <!-- conert list in to cliable and the page -->
       <div class="list-group">
+        <a
+         class="list-group-item list-group-item-action" 
+         [class.active]="!category"
+         routerLink="/">
+         All Categories
+        </a>
         <a 
         *ngFor="let c of categories$ | async"
           routerLink="/"
