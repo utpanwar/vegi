@@ -10,20 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent   {
 
-  product$: any;
+  // product$: any;
+  products=[];
+  filteredProducts=[];
   categories$ : any;
   category: any;
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
               private route :ActivatedRoute) 
   {
-    this.product$=this.productService.getAll();
+    this.productService.getAll().subscribe(products => this.products=products);
     this.categories$=this.categoryService.getCategories();
-    // .subscribe(result =>console.log(result));
-    // console.log(this.categories$)
+    console.log(this.categories$);
+
     route.queryParamMap
     .subscribe(params => 
-      this.category = params.get('category'));
+     { this.category = params.get('category');
+      this.filteredProducts = (this.category) ?
+      this.products.filter(p => p.$value.category === this.category) :
+      this.products
+    });
 
    }
 
