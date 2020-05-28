@@ -21,19 +21,25 @@ export class ProductsComponent   {
               private categoryService : CategoryService,
               private route :ActivatedRoute) 
   {
-    this.categories$=this.categoryService.getCategories();
+   
     
-    this.productService.getAll().subscribe(products => this.products=products);
+    this.productService.getAll().pipe(
+    switchMap(products => {
+      this.products=products;
+      return route.queryParamMap;
+    }))
+      .subscribe(params => 
+       { this.category = params.get('category');
+
+        this.filteredProducts = (this.category) ?
+        this.products.filter(p => p.$value.category === this.category) :
+        this.products
+      });
+      
+      this.categories$=this.categoryService.getCategories();
     // here we have two asyn call so we dont know which one is executed first so shows blank page on 
     // startup product array is empty we solve this with the switchMap operator
 
-    route.queryParamMap
-    .subscribe(params => 
-     { this.category = params.get('category');
-      this.filteredProducts = (this.category) ?
-      this.products.filter(p => p.$value.category === this.category) :
-      this.products
-    });
 
    }
 

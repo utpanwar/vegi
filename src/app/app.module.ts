@@ -33,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatCheckboxModule,MatDialogModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import {MatMenuModule} from '@angular/material/menu';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,
