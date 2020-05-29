@@ -21,7 +21,7 @@ export class ShoppingCartService
 
 private getItem(cartId: string, productId: string)
 {
-    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId).valueChanges();
+    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId).snapshotChanges();
 }
 
 async getCart() //to read cartid from firebase
@@ -38,37 +38,8 @@ async getCart() //to read cartid from firebase
       return result.key;
   }
     
-  // async addToCart(product : Product)
-  // {
-  //   let cartId = await this.getOrCreateCartId();
-  //   let item$ = this.db.object('/shopping-carts/' + cartId + '/items/' + product.$key).snapshotChanges();
-  //   console.log(item$);
-  //   let item$$ = this.db.object('/shopping-carts/' + cartId + '/items/' + product.$key);
-  //   console.log(item$$);
-  //   item$.pipe(take(1)).subscribe( (item : any) => {
-  //     if( item === null ) {
-  //               item$$.set({product: product, quantity: 1});
-  //               console.log('adding new product to cart');
-  //           }else{
-  //               item$$.update({quantity: item.quantity + 1});
-  //               console.log('updating exisiting product ');
-  //          }
-  //         });
-  // }
-
-  // async addToCart(product){                    //here we add the cart to firebase
- 
-  //   let cartId=await this.getOrCreateCartId();
-  //   let item$=this.db.object('/shopping-carts/'+cartId+ '/items/'+product.key);
- 
-  //   item$.snapshotChanges().pipe(take(1)).subscribe((item :any)=>{
-  //     if(item.payload.val())
-  //     item$.update({ quantity:item.payload.val().quantity +1 })
-  //     else
-  //     item$.set({ product:product.payload.val() , quantity:1 })
-  //   })
-  // }
-  async addToCart(product){   //here we add the cart to firebase
+  
+  async addToCart(product : Product){   //here we add the cart to firebase
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
     let item$ = itemRef.snapshotChanges();
@@ -77,19 +48,6 @@ async getCart() //to read cartid from firebase
       else itemRef.set({product:product.$value, quantity:1});
     })
   }
-  // async addToCart(product : Product) {
-  //   let cartId = await this.getOrCreateCartId();
-  //   let item$ = this.getItem(cartId, product.key);
-  //   let item$$ = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
-  //   item$.pipe(take(1)).subscribe( (item : any) => {
-  //      if( item === null ) {
-  //         item$$.set({product: product, quantity: 1});
-  //         console.log('adding new product to cart');
-  //     }else{
-  //         item$$.update({quantity: item.quantity + 1});
-  //         console.log('updating exisiting product ');
-  //    }
-  //   });
-  // }
-
+  
 }
+

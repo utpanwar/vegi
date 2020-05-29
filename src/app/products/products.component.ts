@@ -19,14 +19,14 @@ export class ProductsComponent   {
   filteredProducts=[];
   // categories$ : any;
   category: any;
-  // cart : any;
+  cart : any;
   subscribe :Subscription;
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
-              private route :ActivatedRoute)
-              // private shoppingCartService :ShoppingCartService) 
+              private route :ActivatedRoute ,
+              private shoppingCartService :ShoppingCartService) 
   {
-   
+    
     
     this.productService.getAll().pipe(
     switchMap(products => {
@@ -48,13 +48,13 @@ export class ProductsComponent   {
 
    }
   
-  //  async ngOnInit(){
-  //    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //    //Add 'implements OnInit' to the class.
-  //    this.subscribe= (await this.shoppingCartService.getCart()).valueChanges().subscribe(cart => this.cart = cart);
-  //  }
+   async ngOnInit(){
+     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+     //Add 'implements OnInit' to the class.
+     this.subscribe= (await this.shoppingCartService.getCart()).valueChanges().subscribe(cart => this.cart = cart);
+   }
 
-  //  ngOnDestroy(){
-  //   this.subscribe.unsubscribe();
-  // }
+   ngOnDestroy(){
+    this.subscribe.unsubscribe();
+  }
 }

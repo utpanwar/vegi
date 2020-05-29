@@ -8,20 +8,20 @@ import { Component,  Input } from '@angular/core';
   styleUrls: ['./product-cart.component.css']
 })
 export class ProductCartComponent  {
- @Input('product') product ; // import from product.component.html product is of type { $key ,$value}
+ @Input('product') product : Product; // import from product.component.html product is of type { $key ,$value}
  @Input('show-actions') showActions=true;
  @Input('shopping-cart') shoppingCart;
   constructor(private cartService : ShoppingCartService) { }
 
- addToCart(product)
+ addToCart(product : Product )
  {
     this.cartService.addToCart(product);
  }
-//  getQuantity()
-//  {
-//    if(!this.shoppingCart) return 0;
-//    let item = this.shoppingCart.items[this.product.key];
-//    return item ? item.quantity : 0;
-//  }
+ getQuantity()
+ {
+   if(!this.shoppingCart) return 0;
+   let item = this.shoppingCart.items[this.product.$key];
+   return item ? item.quantity : 0;
+ }
 
 }
