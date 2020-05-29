@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Product } from './models/product';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
@@ -40,14 +41,23 @@ async getCart() //to read cartid from firebase
     
   
   async addToCart(product : Product){   //here we add the cart to firebase
+    this.updateItemQuantity(product,1);
+  }
+  
+  async removeFromCart(product : Product)
+  {
+    this.updateItemQuantity(product,-1);
+  }
+
+  private async updateItemQuantity(product : Product,change : number)
+  {
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
     let item$ = itemRef.snapshotChanges();
     item$.pipe(take(1)).subscribe(item=>{
-      if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+1});
+      if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
       else itemRef.set({product:product.$value, quantity:1});
     })
   }
-  
 }
 
