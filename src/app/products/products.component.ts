@@ -1,9 +1,11 @@
+import { ShoppingCartService } from './../shopping-cart.service';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgControlStatusGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -17,9 +19,12 @@ export class ProductsComponent   {
   filteredProducts=[];
   // categories$ : any;
   category: any;
+  // cart : any;
+  subscribe :Subscription;
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
-              private route :ActivatedRoute) 
+              private route :ActivatedRoute)
+              // private shoppingCartService :ShoppingCartService) 
   {
    
     
@@ -42,7 +47,14 @@ export class ProductsComponent   {
 
 
    }
+  
+  //  async ngOnInit(){
+  //    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+  //    //Add 'implements OnInit' to the class.
+  //    this.subscribe= (await this.shoppingCartService.getCart()).valueChanges().subscribe(cart => this.cart = cart);
+  //  }
 
-
-
+  //  ngOnDestroy(){
+  //   this.subscribe.unsubscribe();
+  // }
 }
