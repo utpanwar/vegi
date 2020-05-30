@@ -27,12 +27,30 @@ private getItem(cartId: string, productId: string)
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId).snapshotChanges();
 }
 
-async getCart() :Promise<Observable<ShoppingCart>> //to read cartid from firebase
+async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId = await this.getOrCreateCartId();
-       return this.db.object('/shopping-carts/' + cartId).valueChanges()
-       .pipe(map( (x : any) => new ShoppingCart(x.items)));
+       let ref=  this.db.object('/shopping-carts/' + cartId);
+      //  let ref1=  this.db.object('/shopping-carts/').valueChanges();
+      //  let ref2=  this.db.object('/shopping-carts/').snapshotChanges();
+      //  let ref3=  this.db.object('/shopping-carts/' + cartId).snapshotChanges();
+      //  console.log(ref);
+      //  console.log(ref1);
+      //  console.log(ref2);
+      //  ref2.subscribe(x=> console.log(x));
+      //  ref1.subscribe(x=> console.log(x));
+       return ref.valueChanges().pipe(map( (x : ShoppingCart) => new ShoppingCart(x.items)));
   }
-
+// async getCart(): Promise<Observable<ShoppingCart>> {
+//   const cartId = await this.getOrCreateCartId();
+//   const cart = this.db.object('/shopping-carts/' + cartId).snapshotChanges().pipe(
+//     map((result: any) => {
+//       const key = result.key;
+//       const items = result.payload.val().items;
+//       return new ShoppingCart(key,items); //this 2 key and items are error
+//     })
+//   );
+//   return cart;
+// }
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
