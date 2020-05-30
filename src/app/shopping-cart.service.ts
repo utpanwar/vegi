@@ -1,8 +1,10 @@
+import { ShoppingCart } from './models/shopping-cart';
 import { async } from '@angular/core/testing';
 import { Product } from './models/product';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
-import {take } from 'rxjs/operators'
+import {take ,map} from 'rxjs/operators'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +27,10 @@ private getItem(cartId: string, productId: string)
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId).snapshotChanges();
 }
 
-async getCart() //to read cartid from firebase
+async getCart() :Promise<Observable<ShoppingCart>> //to read cartid from firebase
   {    let cartId = await this.getOrCreateCartId();
-       return this.db.object('/shopping-carts/' + cartId);
+       return this.db.object('/shopping-carts/' + cartId).valueChanges()
+       .pipe(map( (x : any) => new ShoppingCart(x.items)));
   }
 
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
