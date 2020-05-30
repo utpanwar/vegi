@@ -36,7 +36,8 @@ export class ProductService {
       ref1.pipe(map(changes => changes.map(c => ({   
         $key: c.payload.key, $value: c.payload.val()
       })))).subscribe(x => console.log(x));
-
+    // like in .sub we have payload and key in each object inside the Array
+    // now extract exact data with set theese two property
      return  ref.pipe(map(changes => changes.map(c => ({
         $key: c.payload.key, $value: c.payload.val()
       }))));
