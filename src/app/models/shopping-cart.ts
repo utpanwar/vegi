@@ -16,5 +16,9 @@ export class ShoppingCart{
         }
         return count;
     }
+    // get totalPrice()
+    // {
+    //   return this.items[productId].quantity * this.items[productId].product.price;
+    // }
     
 }
