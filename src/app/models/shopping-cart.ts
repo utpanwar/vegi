@@ -3,9 +3,11 @@ import { ShoppingCartItem } from './shopping-cart-item';
 export class ShoppingCart{
     
    constructor(public items : ShoppingCartItem[]){}
-    get productId()
+    // as we know that items is model takes data from the firebase observale it this 
+    // time firebase returns as an object so we hhave to convert this int o arrays by this method
+    get productIds()
     {
-      return Object.keys(this.items);
+      return Object.keys(this.items);// this returns the objects inside the item as an array
     }
     get totalItemCount()
     {
