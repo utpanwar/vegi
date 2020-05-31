@@ -1,20 +1,25 @@
 import { ShoppingCartItem } from './shopping-cart-item';
 
 export class ShoppingCart{
-    
-   constructor(public items : ShoppingCartItem[]){}
+    items : ShoppingCartItem[] = [];
+   constructor(public itemMaps : { [productId : string] : ShoppingCartItem}){
+     for(let productId in itemMaps)
+     {
+        this.items.push(itemMaps[productId]);
+     }
+   }
     // as we know that items is model takes data from the firebase observale it this 
     // time firebase returns as an object so we hhave to convert this int o arrays by this method
-    get productIds()
-    {
-      return Object.keys(this.items);// this returns the objects inside the item as an array
-    }
+    // get productIds()
+    // {
+    //   return Object.keys(this.items);// this returns the objects inside the item as an array
+    // }
     get totalItemCount()
     {
         let count=0;
-        for(let productId in this.items)
+        for(let productId in this.itemMaps)
         {
-          count += this.items[productId].quantity
+          count += this.itemMaps[productId].quantity
         }
         return count;
     }

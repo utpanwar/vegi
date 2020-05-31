@@ -31,7 +31,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   {    let cartId = await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
        let ref1=  this.db.object('/shopping-carts/' + cartId).valueChanges().subscribe(x => console.log(x));
-       return ref.valueChanges().pipe(map( (x : ShoppingCart) => new ShoppingCart(x.items)));
+       return ref.valueChanges().pipe(map( (x : any) => new ShoppingCart(x.items)));
                                             // x is having dateCreated, items property 
                                             // as a object we pass directly these 
                                             // and ShoppinCArt is fpr intelligence or  replica of
