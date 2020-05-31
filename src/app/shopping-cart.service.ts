@@ -30,10 +30,17 @@ private getItem(cartId: string, productId: string)
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId = await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
-       let ref1=  this.db.object('/shopping-carts/' + cartId).valueChanges().subscribe(x => console.log(x));
-       return ref.valueChanges().pipe(map( (x : any) => new ShoppingCart(x.items)));
+       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log(x));
+       return ref.snapshotChanges()
+       .pipe(map( (x : any) =>
+       { 
+         const key = x.key;
+         const items = x.payload.val().items;
+         return new ShoppingCart(items);
+
+        }));
                                             // x is having dateCreated, items property 
-                                            // as a object we pass directly these 
+                                           // as a object we pass directly these 
                                             // and ShoppinCArt is fpr intelligence or  replica of
                                             // property of x here we are not passing date created
 
