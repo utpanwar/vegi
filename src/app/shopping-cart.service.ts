@@ -4,7 +4,7 @@ import { Product } from './models/product';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import {take ,map} from 'rxjs/operators'
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +30,21 @@ private getItem(cartId: string, productId: string)
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId = await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
-      //  let ref1=  this.db.object('/shopping-carts/').valueChanges();
-      //  let ref2=  this.db.object('/shopping-carts/').snapshotChanges();
-      //  let ref3=  this.db.object('/shopping-carts/' + cartId).snapshotChanges();
-      //  console.log(ref);
-      //  console.log(ref1);
-      //  console.log(ref2);
-      //  ref2.subscribe(x=> console.log(x));
-      //  ref1.subscribe(x=> console.log(x));
+       let ref1=  this.db.object('/shopping-carts/' + cartId).valueChanges().subscribe(x => console.log(x));
        return ref.valueChanges().pipe(map( (x : ShoppingCart) => new ShoppingCart(x.items)));
+                                            // x is having dateCreated, items property 
+                                            // as a object we pass directly these 
+                                            // and ShoppinCArt is fpr intelligence or  replica of
+                                            // property of x here we are not passing date created
+
+
+
   }
+
+                    // map is used to map the object coming from firebase according to 
+                    // our data model ShoppingCart here it is object of dateCreated and items
+
+
 // async getCart(): Promise<Observable<ShoppingCart>> {
 //   const cartId = await this.getOrCreateCartId();
 //   const cart = this.db.object('/shopping-carts/' + cartId).snapshotChanges().pipe(

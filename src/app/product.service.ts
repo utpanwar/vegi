@@ -24,9 +24,9 @@ export class ProductService {
   // } 
   getAll() {
     let ref= this.db.list('/product').snapshotChanges();
-    let ref1= this.db.list('/shopping-carts/'+'-M8QvjNaV7ev2eoB_ZPt').snapshotChanges();
-    // let ref2= this.db.list('/product').snapshotChanges();
-    ref1.subscribe(x =>{ console.log(x); console.log("go")});
+    // let ref1= this.db.list('/shopping-carts/'+'-M8QvjNaV7ev2eoB_ZPt').snapshotChanges();
+    // // let ref2= this.db.list('/product').snapshotChanges();
+    // ref1.subscribe(x =>{ console.log(x); console.log("go")});
     // ref2.subscribe(x =>{ console.log(x); console.log("go2")});
       //  ref1.pipe(map(c => ({
       // $key: c.payload.key, $value: c.payload.val()
