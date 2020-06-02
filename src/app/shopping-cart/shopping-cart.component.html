@@ -15,9 +15,16 @@
             <tr *ngFor="let item of cart.items">
                 <td>{{ item.product.title }}</td> 
                 <td>{{ item.quantity}}</td>
-                <!-- <td>{{ cart.items[productId].quantity * cart.items[productId].product.price }}</td> -->
+                <td>{{ item.totalprice | currency :'INR' : true}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>{{cart.totalPrice | currency :'INR' : true}}</th>
+            </tr>
+        </tfoot>
     </table>
 </ng-container>
  
