@@ -5,7 +5,8 @@ export class ShoppingCart{
    constructor(public itemMaps : { [productId : string] : ShoppingCartItem}){
      for(let productId in itemMaps)
      {
-        this.items.push(itemMaps[productId]);
+        let item = itemMaps[productId];
+        this.items.push(new ShoppingCartItem(item.product,item.quantity));
      }
    }
     // as we know that items is model takes data from the firebase observale it this 
@@ -14,6 +15,15 @@ export class ShoppingCart{
     // {
     //   return Object.keys(this.items);// this returns the objects inside the item as an array
     // }
+    get totalPrice()
+    {
+      let sum =0 ;
+      for( let productId in this.items)
+      {
+        sum +=this.items[productId].totalprice;
+      }
+      return sum;
+    }
     get totalItemCount()
     {
         let count=0;
