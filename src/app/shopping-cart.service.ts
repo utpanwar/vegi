@@ -35,8 +35,8 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
        .pipe(map( (x : any) =>
        { 
          const key = x.key;
-         const items = x.payload.val().items;
-         return new ShoppingCart(items);
+         const item = x.payload.val().items;
+         return new ShoppingCart(item);
 
         }));
                                             // x is having dateCreated, items property 
@@ -92,5 +92,22 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       else itemRef.set({product:product.$value, quantity:1});
     })
   }
-}
-
+//   private async updateItemQuantity(product : Product,change : number)
+//   {
+//     let cartId = await this.getOrCreateCartId();
+//     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+//     let item$ = itemRef.snapshotChanges();
+//     item$.pipe(take(1)).subscribe(item=>{
+//       // if(item.payload.exists())
+//       let quantity = (item.payload.val()['quantity'] || 0)+change;
+//       if(quantity===0) itemRef.remove();
+//       else
+//        itemRef.update({
+//          product:product.$value ,
+//          quantity: quantity
+//       // else 
+//       // itemRef.set({product:product.$value, quantity:1});
+//     });});
+  
+// }
+  }
