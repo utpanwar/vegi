@@ -1,3 +1,4 @@
+import { ShoppingCart } from './../models/shopping-cart';
 import { ShoppingCartService } from './../shopping-cart.service';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -13,21 +14,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent   {
-
-  // product$: any;
   products=[];
   filteredProducts=[];
-  // categories$ : any;
   category: any;
-  cart : any;
+  cart : ShoppingCart;
   subscribe :Subscription;
+
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
               private route :ActivatedRoute ,
               private shoppingCartService :ShoppingCartService) 
   {
     
-    
+    console.log("ji");
     this.productService.getAll().pipe(
     switchMap(products => {
       this.products=products;
@@ -40,20 +39,19 @@ export class ProductsComponent   {
         this.products.filter(p => p.$value.category === this.category) :
         this.products
       });
-      
-     
-    // here we have two asyn call so we dont know which one is executed first so shows blank page on 
-    // startup product array is empty we solve this with the switchMap operator
+    }
 
 
-   }
-  
    async ngOnInit(){
-     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-     //Add 'implements OnInit' to the class.
-     this.subscribe= (await this.shoppingCartService.getCart()).subscribe(cart => this.cart = cart);
+     console.log("Triggered ONINIT by product.component.ts");
+     this.subscribe= (await this.shoppingCartService.getCart()).subscribe(cart => {this.cart = cart;
+      console.log(cart)
+      console.log
+      ("this cart data comes from product OnInit in last because they subscribe it")});
+      console.log(this.cart);
+      console.log("end ONINIT of product.component.ts");
+    
    }
-
    ngOnDestroy(){
     this.subscribe.unsubscribe();
   }
