@@ -1,3 +1,6 @@
+// this component manage the full navbar like dropdown logout
+
+
 import { async } from '@angular/core/testing';
 import { ShoppingCartService } from './../shopping-cart.service';
 // import { AngularFireAuth } from '@angular/fire/auth';
@@ -29,6 +32,9 @@ export class BsNavbarComponent implements OnInit {
     // Add 'implements OnInit' to the class.
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser); // Subscribing here to avoid
     //  using the async pipe in the html template that causes infinite loop
+    console.log("Triggered Oninit by bs-navbar.cop.ts")
     this.cart$ = await this.shopingService.getCart();
+    console.log(this.cart$);
+    console.log("ONINIT OF bs-navbar page data ends")
   }
 }
