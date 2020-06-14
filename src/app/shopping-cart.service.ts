@@ -28,7 +28,7 @@ private getItem(cartId: string, productId: string)
 }
 
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
-  {    let cartId = await this.getOrCreateCartId();
+  {    let cartId =  await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
        let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log(x));
        return ref.snapshotChanges()
@@ -67,10 +67,13 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
     if(cartId) return cartId;
-      let result = await this.create();    //here we call create method to create a cartid and store it in local storage
+      let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
+      console.log(result);
       localStorage.setItem('cartId' ,result.key);
-      return result.key;
+      console.log("hi");
+      return  result.key;
   }
+     
     
   
   async addToCart(product : Product){   //here we add the cart to firebase
