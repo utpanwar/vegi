@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
   //  it handles data inside the table under the shopping cart tab
 import { Observable } from 'rxjs';
 import { ShoppingCartService } from './../shopping-cart.service';
@@ -9,7 +10,7 @@ import { ShoppingCart } from '../models/shopping-cart';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent implements OnInit,OnDestroy {
   cart$ : Observable<ShoppingCart>;
   constructor(private shoppingCartService :ShoppingCartService) { }
 
@@ -19,5 +20,8 @@ export class ShoppingCartComponent implements OnInit {
     console.log(this.cart$);
     console.log("ONINIT OF SHOPPING-CART shopping cart page data ends")
   }
-
+  ngOnDestroy()
+  {
+    console.log("%c i shoping-cart destroy", "color:red; font-size:13px");
+  }
 }
