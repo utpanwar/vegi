@@ -1,11 +1,11 @@
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService implements OnDestroy {
 
   constructor(private db : AngularFireDatabase) { }
   
@@ -72,5 +72,9 @@ export class ProductService {
    delete(productId)
    {
      return this.db.object('/product/' + productId).remove();
+   }
+   ngOnDestroy()
+   {
+    console.log("%c i product.service destroy" ,"color:red; font-size:13px");
    }
 }

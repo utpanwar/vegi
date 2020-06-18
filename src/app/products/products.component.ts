@@ -33,7 +33,7 @@ export class ProductsComponent   {
               private shoppingCartService :ShoppingCartService) 
   {
     
-    console.log("ji");
+    console.log("%c i am product.ts component","color:blue; font-size:13px");
     this.productService.getAll().pipe(
     switchMap(products => {
       this.products=products;
@@ -90,5 +90,7 @@ export class ProductsComponent   {
   //  getCart return object of shoppingCart class so we deorate this in to shoppingCart
    ngOnDestroy(){
     this.subscribe.unsubscribe();
+    console
+   .log("%ci prod.ts going to destroy","color:red; font-size:13px");
   }
 }

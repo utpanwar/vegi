@@ -20,7 +20,10 @@ export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
   cart$ : Observable<ShoppingCart>;
   constructor( private auth: AuthService,
-              private shopingService:ShoppingCartService) {}
+              private shopingService:ShoppingCartService) 
+  {
+    console.log("i am bs-navbar component");
+  }
   logout()
   {
     this.auth.logout();

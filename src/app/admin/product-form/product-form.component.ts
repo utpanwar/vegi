@@ -48,6 +48,8 @@ export class ProductFormComponent implements OnInit {
    }
 
   ngOnInit() {
+    console
+    .log("%ci prod.quan.ts going to destroy","color:red; font-size:13px");
   }
 
 }
