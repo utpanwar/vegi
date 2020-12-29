@@ -26,7 +26,7 @@ export class ProductsComponent   {
   filteredProducts=[];
   // categories$ : any;
   category: any;
-  cart : ShoppingCart;
+  // cart : ShoppingCart;
   subscribe :Subscription;
   // while constructor is part of ES6 JavaScript class
   // const should be used for only DI, it is creater first while the component tree is created all the const are
@@ -34,7 +34,7 @@ export class ProductsComponent   {
   constructor(private productService : ProductService, 
               private categoryService : CategoryService,
               private route :ActivatedRoute ,
-              private shoppingCartService :ShoppingCartService) 
+              public shoppingCartService :ShoppingCartService) 
   {
     
     console.log("%c i am product.ts component","color:blue; font-size:13px");
@@ -82,14 +82,13 @@ export class ProductsComponent   {
      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
      //Add 'implements OnInit' to the class.
      console.log("Triggered ONINIT by product.component.ts");
-     this.subscribe= (await this.shoppingCartService.getCart()).subscribe(cart => {this.cart = cart;
+    //  this.subscribe= (await this.shoppingCartService.getCart()).subscribe(cart => {this.cart = cart;
       // The ngOnInit() hooks only once after all directives are instantiated.
       //  If you have subscription insidengOnInit() 
       //  and it's not unsubscribed then it will run again if the subscribed data changes
-      console.log(cart)
-      console.log
-      ("this cart data comes from product OnInit in last because they subscribe it")});
-      console.log(this.cart);
+      // console.log(cart)
+      console.log("this cart data comes from product OnInit in last because they subscribe it");
+      // console.log(this.cart);
       console.log("end ONINIT of product.component.ts");
     
    }
@@ -104,10 +103,10 @@ export class ProductsComponent   {
   //   console.log("end ONINIT of product.component.ts");
   // }
 
-   ngOnDestroy(){
-    this.subscribe.unsubscribe();
-    console.log("UTKARSH" +" "+ JSON.stringify(this.cart));
-    console
-   .log("%ci prod.ts going to destroy","color:red; font-size:13px");
-  }
+  //  ngOnDestroy(){
+  //   this.subscribe.unsubscribe();
+  //   // console.log("UTKARSH" +" "+ JSON.stringify(this.cart));
+  //   console
+  //  .log("%ci prod.ts going to destroy","color:red; font-size:13px");
+  // }
 }

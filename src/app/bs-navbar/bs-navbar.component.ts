@@ -21,9 +21,9 @@ import { ShoppingCart } from '../models/shopping-cart';
 })
 export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
-  cart$ : Observable<ShoppingCart>;
+  // cart$ : Observable<ShoppingCart>;
   constructor( private auth: AuthService,
-              private shopingService:ShoppingCartService) 
+              public shopingService:ShoppingCartService) 
   {
     console.log("i am bs-navbar component");
   }
@@ -39,8 +39,13 @@ export class BsNavbarComponent implements OnInit {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser); // Subscribing here to avoid
     //  using the async pipe in the html template that causes infinite loop
     console.log("Triggered Oninit by bs-navbar.cop.ts")
-    this.cart$ = await this.shopingService.getCart();
-    console.log("bs-oninit"+" " +this.cart$);
+    // this.cart$ = await this.shopingService.getCart();
+    // what is await working here ?
+    // await is working like a .then in promise as we hover on the getRtlScrollAxisType() methd
+    // we can see it return the Promise<Observable<ShoppingCart>> type and cart$ is of type 
+    // Observable<ShoppingCart>; . now await converts the promise into (consume or unwrap or map )
+    // like the .then method
+    // console.log("bs-oninit"+" " +this.cart$);
     console.log("ONINIT OF bs-navbar page data ends")
   }
 }
