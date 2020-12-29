@@ -1,8 +1,12 @@
 import { ShoppingCart } from './../models/shopping-cart';
 
                   //  it takes component for the category and the bootstrap cart
+                  // CHILD COMPONENT : YES;
+                  //  1. product-filter
+                  //  2.product-cart
+                          // a. product-quantity
 import { ShoppingCartService } from './../shopping-cart.service';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
@@ -41,10 +45,12 @@ export class ProductsComponent   {
     }))
       .subscribe(params => 
        { this.category = params.get('category');
-
+         console.log(this.category);
         this.filteredProducts = (this.category) ?
         this.products.filter(p => p.$value.category === this.category) :
         this.products
+        console.log(this.filteredProducts);
+        console.log(this.category);
       });
       
      
@@ -88,8 +94,19 @@ export class ProductsComponent   {
     
    }
   //  getCart return object of shoppingCart class so we deorate this in to shoppingCart
+
+
+  // async ngOnInit(){
+  //   console.log("Triggered ONINIT by product.component.ts");
+  //   this.subscribe= (await this.shoppingCartService.getCart())
+  //   .subscribe(cart => {this.cart = cart; console.log("UT"+" "+this.cart)})
+  //   console.log("UTKARSH" +" "+ this.cart);
+  //   console.log("end ONINIT of product.component.ts");
+  // }
+
    ngOnDestroy(){
     this.subscribe.unsubscribe();
+    console.log("UTKARSH" +" "+ JSON.stringify(this.cart));
     console
    .log("%ci prod.ts going to destroy","color:red; font-size:13px");
   }
