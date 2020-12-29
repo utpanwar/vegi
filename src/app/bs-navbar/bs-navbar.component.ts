@@ -1,4 +1,7 @@
-// this component manage the full navbar like dropdown logout
+// this component manage the full navbar like dropdown, logout,shopping cart in the routing 
+// and it having routing to the shoping cart and all the dropdown options
+// CHILD COMPONENT : NO;
+// FUNLITY : logout the user(not changing the route) ,
 
 
 import { async } from '@angular/core/testing';
@@ -37,7 +40,7 @@ export class BsNavbarComponent implements OnInit {
     //  using the async pipe in the html template that causes infinite loop
     console.log("Triggered Oninit by bs-navbar.cop.ts")
     this.cart$ = await this.shopingService.getCart();
-    console.log(this.cart$);
+    console.log("bs-oninit"+" " +this.cart$);
     console.log("ONINIT OF bs-navbar page data ends")
   }
 }

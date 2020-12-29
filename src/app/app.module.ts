@@ -37,7 +37,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
 @NgModule({
+  
   declarations: [
     AppComponent,
     BsNavbarComponent,
@@ -53,7 +55,8 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFormComponent,
     ProductFilterComponent,
     ProductCartComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ArrayPipe
   ],
   imports: [
     BrowserModule,

@@ -15,11 +15,11 @@ export class ShoppingCartService
   constructor(private db: AngularFireDatabase) { }
 
 
-  create()
+  private  create()
   {
     return this.db.list('/shopping-carts').push({
       dateCreated : new Date().getTime()
-    })
+      });
   }
 
 private getItem(cartId: string, productId: string)
@@ -30,14 +30,13 @@ private getItem(cartId: string, productId: string)
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId =  await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
-       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log(x));
+       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log("getcart()"+" "+x));
        return ref.snapshotChanges()
        .pipe(map( (x : any) =>
        { 
          const key = x.key;
          const item = x.payload.val().items;
          return new ShoppingCart(item);
-
         }));
                                             // x is having dateCreated, items property 
                                            // as a object we pass directly these 
@@ -66,9 +65,13 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
-    if(cartId) return cartId;
+    if(cartId) 
+    {
+      return cartId;
+    }
+    
       let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
-      console.log(result);
+      console.log("getOrCreateCartId()"+ " " +result);
       localStorage.setItem('cartId' ,result.key);
       console.log("hi");
       return  result.key;
