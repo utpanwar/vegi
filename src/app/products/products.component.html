@@ -14,7 +14,7 @@
         <div class="row">
             <ng-container *ngFor="let p of filteredProducts ; let i =index">
             <div class="col">
-               <app-product-cart [product]="p" [shopping-cart]="cart"></app-product-cart>
+               <app-product-cart [product]="p" [shopping-cart]="shoppingCartService.cart"></app-product-cart>
                <!-- this componenet  shows the list of  cart on home page -->
             </div>
             <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>

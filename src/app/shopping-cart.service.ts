@@ -2,7 +2,7 @@ import { ShoppingCart } from './models/shopping-cart';
 import { async } from '@angular/core/testing';
 import { Product } from './models/product';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
-import { Injectable } from '@angular/core';
+import { Injectable , OnInit} from '@angular/core';
 import {take ,map} from 'rxjs/operators'
 import { Observable, of } from 'rxjs';
 
@@ -11,10 +11,20 @@ import { Observable, of } from 'rxjs';
 })
 export class ShoppingCartService 
 {
-
-  constructor(private db: AngularFireDatabase) { }
-
-
+  cart : ShoppingCart;
+  cart$ : Observable<ShoppingCart>;
+  carttmp : Observable<ShoppingCart>;
+  constructor(private db: AngularFireDatabase) 
+  {
+    // this.carttmp =  this.getCart().then(result => this.cart$ = result);
+    // this.cart$.subscribe(res => this.cart = res);
+    this.first();
+  }
+  private async first()
+  {
+    this.carttmp = await this.getCart().then(result => this.cart$ = result);  
+    this.cart$.subscribe(res => this.cart = res);
+  }
   private  create()
   {
     return this.db.list('/shopping-carts').push({
@@ -116,4 +126,9 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 //     });});
   
 // }
+ ngOnInit()
+ {
+   console.log("NGON");
+   this.cart$.subscribe(res => this.cart = res);
+ }
   }
