@@ -1,16 +1,22 @@
 import { ShoppingCart } from './models/shopping-cart';
 import { async } from '@angular/core/testing';
 import { Product } from './models/product';
-import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject, SnapshotAction } from '@angular/fire/database';
 import { Injectable , OnInit} from '@angular/core';
 import {take ,map} from 'rxjs/operators'
 import { Observable, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService 
 {
+  subscribe :Subscription;
+  dart : any;
+  id :any;
+  // cartIdFire : SnapshotAction<unknown>[];
+  cartIdFire : any;
   cart : ShoppingCart;
   cart$ : Observable<ShoppingCart>;
   carttmp : Observable<ShoppingCart>;
@@ -26,7 +32,7 @@ export class ShoppingCartService
     this.cart$.subscribe(res => this.cart = res);
   }
   private  create()
-  {
+  { // push method return the promise  so we are able to await it 
     return this.db.list('/shopping-carts').push({
       dateCreated : new Date().getTime()
       });
@@ -72,6 +78,22 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 //   );
 //   return cart;
 // }
+  private async getServer() 
+  {
+       return this.db.list('/shopping-carts/').snapshotChanges();
+      //  .subscribe(x => this.cartIdFire = x);
+      //  if(this.cartIdFire)
+      //  {
+      //    console.log(this.cartIdFire);
+      //    return "hey";
+      //  }
+       
+      // return this.db.list('/shopping-carts/')
+      // .snapshotChanges()
+      // .pipe(map(changes => changes.map(c => ({
+      //   $key: c.payload.key
+      // }))));
+  } 
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
@@ -79,7 +101,15 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     {
       return cartId;
     }
-    
+    //  await this.getServer().then(x => this.cartIdFire = x);
+     (await this.getServer()).subscribe(x => this.cartIdFire = x);
+    //  this.cartIdFire.subscribe(x => this.id =x);
+     console.log(this.id);
+     console.log(this.cartIdFire);
+    if(this.cartIdFire)
+    {
+      return this.cartIdFire;
+    } 
       let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
       console.log("getOrCreateCartId()"+ " " +result);
       localStorage.setItem('cartId' ,result.key);
@@ -88,7 +118,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   }
      
     
-  
+     
   async addToCart(product : Product){   //here we add the cart to firebase
     this.updateItemQuantity(product,1);
   }
