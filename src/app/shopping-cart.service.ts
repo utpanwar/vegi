@@ -112,7 +112,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     {
       return cartId;
     }
-    this.id = await this.getServer()
+    this.id =  this.getServer()
     .then(result => {
       console.log('From Promise:', result);
       this.cartIdFire = result;
