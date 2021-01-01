@@ -80,8 +80,8 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 // }
   private  getServer() 
   {
-       return  this.db.list('/shopping-carts/').snapshotChanges().toPromise();
-      //  .pipe(take(1)).toPromise();
+       return  this.db.list('/shopping-carts/').snapshotChanges()
+       .pipe(take(1)).toPromise();
       //  .subscribe(x => this.cartIdFire = x);
       //  if(this.cartIdFire)
       //  {
