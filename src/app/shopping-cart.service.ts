@@ -95,16 +95,6 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       //   $key: c.payload.key
       // }))));
   } 
-  private async resol(id : Promise<SnapshotAction<unknown>[]>)
-  {
-    console.log(id);
-    // this.cartIdFire = id;
-    id.then(x =>{ this.cartIdFire = x;
-      console.log(x);
-    });
-    console.log(this.cartIdFire);
-     return "hi";
-  }
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
@@ -112,32 +102,21 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     {
       return cartId;
     }
-    this.id =  await this.getServer()
-    // .then(result => {
-    //   console.log('From Promise:', result);
-    //   this.cartIdFire = result;
-    // });
-    // .then(x => this.cartIdFire = x);
-    //  (await this.getServer()).subscribe(x => this.cartIdFire = x);
-    //  this.cartIdFire.subscribe(x => this.id =x);
-    // this.id = await this.db.list('/shopping-carts/').snapshotChanges()
-    //                 .toPromise()
-    //                 .then(x => this.cartIdFire = x);
-    // this.id.then(x => this.cartIdFire = x);
-    // let id2 = await this.resol(this.id);
-    // console.log(id2);
-     console.log(this.id);
-     console.log(this.cartIdFire);
-    if(this.cartIdFire)
+    this.id = await this.db.list('/shopping-carts/').snapshotChanges()
+                        .pipe(take(1)).toPromise();
+    //  console.log(this.id);
+    //  console.log(this.cartIdFire);
+    if(this.id && this.id.length!=0)
     {
-      return this.cartIdFire;     
+      // console.log(this.id[1].key);
+      localStorage.setItem('cartId',this.id[0].key);
+      return this.id[0].key;     
     } 
-      // let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
-      // console.log("getOrCreateCartId()"+ " " +result);
-      // localStorage.setItem('cartId' ,result.key);
+      let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
+      console.log(result);
+      localStorage.setItem('cartId' ,result.key);
       // console.log("hi");
-      // return  result.key;
-      return "ji";
+      return  result.key;
   }
      
     
