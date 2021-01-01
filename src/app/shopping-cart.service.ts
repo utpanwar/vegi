@@ -78,9 +78,10 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 //   );
 //   return cart;
 // }
-  private async getServer() 
+  private  getServer() 
   {
-       return this.db.list('/shopping-carts/').snapshotChanges();
+       return  this.db.list('/shopping-carts/').snapshotChanges().toPromise();
+      //  .pipe(take(1)).toPromise();
       //  .subscribe(x => this.cartIdFire = x);
       //  if(this.cartIdFire)
       //  {
@@ -94,6 +95,16 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       //   $key: c.payload.key
       // }))));
   } 
+  private async resol(id : Promise<SnapshotAction<unknown>[]>)
+  {
+    console.log(id);
+    // this.cartIdFire = id;
+    id.then(x =>{ this.cartIdFire = x;
+      console.log(x);
+    });
+    console.log(this.cartIdFire);
+     return "hi";
+  }
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
@@ -101,20 +112,32 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     {
       return cartId;
     }
-    //  await this.getServer().then(x => this.cartIdFire = x);
-     (await this.getServer()).subscribe(x => this.cartIdFire = x);
+    this.id =   this.getServer();
+    // .then(result => {
+    //   console.log('From Promise:', result);
+    //   this.cartIdFire = result;
+    // });
+    // .then(x => this.cartIdFire = x);
+    //  (await this.getServer()).subscribe(x => this.cartIdFire = x);
     //  this.cartIdFire.subscribe(x => this.id =x);
+    // this.id = await this.db.list('/shopping-carts/').snapshotChanges()
+    //                 .toPromise()
+    //                 .then(x => this.cartIdFire = x);
+    // this.id.then(x => this.cartIdFire = x);
+    // let id2 = await this.resol(this.id);
+    // console.log(id2);
      console.log(this.id);
      console.log(this.cartIdFire);
     if(this.cartIdFire)
     {
-      return this.cartIdFire;
+      return this.cartIdFire;     
     } 
-      let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
-      console.log("getOrCreateCartId()"+ " " +result);
-      localStorage.setItem('cartId' ,result.key);
-      console.log("hi");
-      return  result.key;
+      // let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
+      // console.log("getOrCreateCartId()"+ " " +result);
+      // localStorage.setItem('cartId' ,result.key);
+      // console.log("hi");
+      // return  result.key;
+      return "ji";
   }
      
     
