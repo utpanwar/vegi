@@ -19,7 +19,7 @@ export class ShoppingCart{
     // }
     getQuantity(product : Product)
     {
-      // console.log(product);
+      // console.log("productssssssss",product);
       let item = this.itemMaps[product.$key];
       return item ? item.quantity : 0;
     }

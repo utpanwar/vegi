@@ -165,7 +165,16 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       //   }
        
       // }
+    let item$1= itemRef1.snapshotChanges();
+    item$1.pipe(take(1)).subscribe(item=>{
+      if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
+      else itemRef1.set({product:product.$value, quantity:1});
     })
+    // let item$ = itemRef.snapshotChanges();
+    // item$.pipe(take(1)).subscribe(item=>{
+    //   if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
+    //   else itemRef.set({product:product.$value, quantity:1});
+    // })
   }
 
 
