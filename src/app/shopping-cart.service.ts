@@ -130,6 +130,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   {
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+    let itemRef1 = this.db.object('/shopping-test/'+cartId+'/items/'+product.$key);
     let item$ = itemRef.snapshotChanges();
     item$.pipe(take(1)).subscribe(item=>{
       if(item.payload.exists())
