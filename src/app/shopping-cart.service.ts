@@ -78,23 +78,6 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 //   );
 //   return cart;
 // }
-  private  getServer() 
-  {
-       return  this.db.list('/shopping-carts/').snapshotChanges()
-       .pipe(take(1)).toPromise();
-      //  .subscribe(x => this.cartIdFire = x);
-      //  if(this.cartIdFire)
-      //  {
-      //    console.log(this.cartIdFire);
-      //    return "hey";
-      //  }
-       
-      // return this.db.list('/shopping-carts/')
-      // .snapshotChanges()
-      // .pipe(map(changes => changes.map(c => ({
-      //   $key: c.payload.key
-      // }))));
-  } 
   private async getOrCreateCartId() //to create a cartid or acceess the cartid 
   {
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
@@ -130,16 +113,63 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     this.updateItemQuantity(product,-1);
   }
 
+  // private async updateItemQuantity(product : Product,change : number)
+  // {
+  //   let cartId = await this.getOrCreateCartId();
+  //   let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+  //   let item$ = itemRef.snapshotChanges();
+  //   item$.pipe(take(1)).subscribe(item=>{
+  //     if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
+  //     else itemRef.set({product:product.$value, quantity:1});
+  //     if(item.payload.exists() && item.payload.val()['quantity']==0) itemRef.remove();
+  //   })
+  // }
+
+
   private async updateItemQuantity(product : Product,change : number)
   {
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
     let item$ = itemRef.snapshotChanges();
     item$.pipe(take(1)).subscribe(item=>{
-      if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
-      else itemRef.set({product:product.$value, quantity:1});
+      if(item.payload.exists())
+      {
+        console.log("A");
+        itemRef.update({quantity: item.payload.val()['quantity']+change})
+        .then(x => 
+          {
+            console.log("HELLOLLLL");
+            console.log(item.payload.val()['quantity']);
+            if(item.payload.val()['quantity'] -1 == 0 && change == -1) 
+              {
+                console.log(item.payload.val()['quantity']);
+                itemRef.remove();
+                console.log("C");
+              }
+          });
+      }
+      else
+      {
+        itemRef.set({product:product.$value, quantity:1});
+        console.log("B");
+      } 
+
+      // if(item.payload.exists())
+      // {
+      //   if(item.payload.val()['quantity']==0) 
+      //   {
+      //     console.log(item.payload.val()['quantity']);
+      //     itemRef.remove();
+      //     console.log("C");
+      //   }
+       
+      // }
     })
   }
+
+
+
+
 //   private async updateItemQuantity(product : Product,change : number)
 //   {
 //     let cartId = await this.getOrCreateCartId();

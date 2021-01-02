@@ -6,6 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../models/product';
 import { ShoppingCartService } from '../shopping-cart.service';
 
+// work:- it handles the + or - buttons
+                  // CHILD COMPONENT : NO;
+                  //  PARENT COMPONENT(CONSUMERS) : YES
+                      // a.product-cart and product.ts
 @Component({
   selector: 'app-product-quantity',
   templateUrl: './product-quantity.component.html',
@@ -16,7 +20,7 @@ export class ProductQuantityComponent implements OnInit,OnDestroy  {
   
   @Input('product') product : Product; // import from product-cart.component.html product is of type { $key ,$value}
   // @Input('show-actions') showActions=true;
-  @Input('shopping-cart') shoppingCart;
+  @Input('shopping-cart') shoppingCart; //import from produt-cart and product.ts
    constructor(private cartService : ShoppingCartService)
     {
       // var style = 'color: tomato; background:#eee; -webkit-text-stroke: 1px black; font-size:30px;';
