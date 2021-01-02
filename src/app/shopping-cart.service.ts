@@ -131,6 +131,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
     let itemRef1 = this.db.object('/shopping-test/'+cartId+'/items/'+product.$key);
+<<<<<<< Updated upstream
     let item$ = itemRef.snapshotChanges();
     item$.pipe(take(1)).subscribe(item=>{
       if(item.payload.exists())
@@ -169,6 +170,12 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     item$1.pipe(take(1)).subscribe(item=>{
       if(item.payload.exists()) itemRef.update({quantity: item.payload.val()['quantity']+change});
       else itemRef1.set({product:product.$value, quantity:1});
+=======
+    let item$1= itemRef1.snapshotChanges();
+    item$1.pipe(take(1)).subscribe(item=>{
+      itemRef1.update({quantity: item.payload.val()['quantity']+change});
+      // else itemRef1.set({product:product.$value, quantity:1});
+>>>>>>> Stashed changes
     })
     // let item$ = itemRef.snapshotChanges();
     // item$.pipe(take(1)).subscribe(item=>{
