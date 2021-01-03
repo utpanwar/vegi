@@ -112,7 +112,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   {
     this.updateItemQuantity(product,-1);
   }
-
+    // kkkk
   // private async updateItemQuantity(product : Product,change : number)
   // {
   //   let cartId = await this.getOrCreateCartId();
