@@ -1,9 +1,14 @@
 <p>This i sthe charts worlds</p>
 <div class="form-group">
     <label for="file">Choose File</label>
-    <input type="file" id="file" accept=".json"
+    <input type="file" id="file" accept=".json,.csv"
            (change)="handleFileInput($event)">
 </div>
 
 <button type="button" class="btn btn-primary" 
      (click)="uploadDocument()">Upload File</button>
+
+     <br>
+<div *ngIf = "chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>

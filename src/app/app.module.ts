@@ -39,6 +39,7 @@ import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
 import { ChartsComponent } from './charts/charts.component';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 @NgModule({
   
   declarations: [
@@ -101,6 +102,7 @@ import { ChartsComponent } from './charts/charts.component';
          canActivate:[AuthGuardService,AdminAuthGuardService] } ,
     ]),
     BrowserAnimationsModule,MatCheckboxModule,MatMenuModule,MatDialogModule,
+    NgxCsvParserModule,
   ],
 
   providers: [
