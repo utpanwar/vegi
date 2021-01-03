@@ -38,6 +38,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
+import { ChartsComponent } from './charts/charts.component';
 @NgModule({
   
   declarations: [
@@ -56,7 +57,8 @@ import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
     ProductFilterComponent,
     ProductCartComponent,
     ProductQuantityComponent,
-    ArrayPipe
+    ArrayPipe,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +71,7 @@ import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
     RouterModule.forRoot([
       { path :'' , component : ProductsComponent} ,
       { path : "products" , component :ProductsComponent} ,
+      { path : "charts" , component :ChartsComponent} ,
       { path : "shopping-cart", component: ShoppingCartComponent} ,
       { path : 'login', component: LoginComponent } ,
 
