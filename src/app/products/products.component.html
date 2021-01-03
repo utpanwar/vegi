@@ -1,1 +1,28 @@
-<p>products works!</p>
+<div class="row">
+    <div class="col-3">
+      <!-- <ul class="list-group">
+          <li *ngFor="let c of categories$ | async" class="list-group-item">
+              {{c.name}}
+          </li>
+      </ul> -->
+      <!-- conert list in to cliable and the page -->
+    <app-product-filter [category]="category"></app-product-filter>
+    <!-- this component shows the category bar on the left hand side on home page -->
+    </div>
+    <!-- this div show the cart in loop -->
+    <div class="col">
+        <div class="row">
+            <ng-container *ngFor="let p of filteredProducts ; let i =index">
+            <div class="col">
+               <app-product-cart [product]="p" [shopping-cart]="shoppingCartService.cart"></app-product-cart>
+               <!-- this componenet  shows the list of  cart on home page -->
+            </div>
+            <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>
+         </ng-container>
+       </div>
+   </div>
+</div>
+              
+
+
+    

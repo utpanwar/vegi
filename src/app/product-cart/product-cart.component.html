@@ -1,0 +1,19 @@
+  <!-- it is the single cart shown on screen  -->
+<div class="card" style="width: 18rem;">
+    <!-- <img [src]="product.$value.imageUrl" class="card-img-top" > -->
+    <img src={{product.$value.imageUrl}} class="card-img-top" />
+     <div class="card-body">
+      <h5 class="card-title">{{product.$value.title}}</h5>
+        <p class="card-text">{{product.$value.price | currency :'USD'}}</p>
+      </div>
+      <div *ngIf="shoppingCart"   class="card-footer">
+         <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+          (click)="addToCart()" class= " btn btn-secondary btn-block">Add to cart</button> 
+          <ng-template #updateQuantity>
+           <app-product-quantity [product]="product" [shopping-cart]="shoppingCart">
+           <!-- it handles the + - and add to cart -->
+           </app-product-quantity>
+          </ng-template>
+      </div>   
+   </div>
+  <!-- product is of type {$key ,$value} -->
