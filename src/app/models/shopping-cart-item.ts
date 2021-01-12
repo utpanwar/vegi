@@ -11,8 +11,11 @@ export class ShoppingCartItem {
     imageUrl : string;
     price : number;
     quantity : number;
-get totalprice()
- {       
-    return this.price * this.quantity;
- }
-}
+    constructor(init? : Partial<ShoppingCartItem> ){
+        Object.assign(this,init);    
+    }
+    get totalprice()
+      {       
+            return this.price * this.quantity;
+      }
+    }

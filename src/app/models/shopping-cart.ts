@@ -8,10 +8,10 @@ export class ShoppingCart{
      for(let productId in itemMaps)
      {
         let item = itemMaps[productId];
-        let x = new ShoppingCartItem();
-        Object.assign(x,item);
-        x.$key = productId;
-        this.items.push(x);
+        // let x = new ShoppingCartItem();
+        // Object.assign(x,item);
+        // x.$key = productId;
+        this.items.push(new ShoppingCartItem({...item , $key : productId}));
      }
    }
     // as we know that items is model takes data from the firebase observale it this 
