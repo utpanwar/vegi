@@ -46,7 +46,7 @@ private getItem(cartId: string, productId: string)
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId =  await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
-       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log("getcart()"+" "+x));
+       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log("getcart()",x));
        return ref.snapshotChanges()
        .pipe(map( (x : any) =>
        { 

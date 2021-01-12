@@ -1,3 +1,4 @@
+import { ShoppingCart } from './../models/shopping-cart';
 import { OnDestroy } from '@angular/core';
       
       // it handles the  (+) or  (-) buttons and add to cart in bootstrap cart and handles event on these
@@ -20,7 +21,7 @@ export class ProductQuantityComponent implements OnInit,OnDestroy  {
   
   @Input('product') product : Product; // import from product-cart.component.html product is of type { $key ,$value}
   // @Input('show-actions') showActions=true;
-  @Input('shopping-cart') shoppingCart; //import from produt-cart and product.ts
+  @Input('shopping-cart') shoppingCart : ShoppingCart; //import from produt-cart and product.ts
    constructor(private cartService : ShoppingCartService)
     {
       // var style = 'color: tomato; background:#eee; -webkit-text-stroke: 1px black; font-size:30px;';
@@ -46,7 +47,8 @@ ngOnInit()
   // console.log("ONINIT OF product-quantity.ts");
   console.log("%c thisis Oninit parent cy -> = product.ts->product-cart.ts->product-quantity.ts",
   "color:yellow; font-size:13px");
-
+   console.log(this.product);
+   console.log(this.shoppingCart);
 }
 ngOnDestroy()
 {
