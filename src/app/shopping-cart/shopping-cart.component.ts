@@ -14,6 +14,10 @@ export class ShoppingCartComponent implements OnInit,OnDestroy {
   cart$ : Observable<ShoppingCart>;
   constructor(private shoppingCartService :ShoppingCartService) { }
 
+  clearCart()
+  {
+    this.shoppingCartService.clearCart();
+  }
   async ngOnInit() {
     console.log(" ONINIT OF SHOPPING-CART handle data inside the table or caleed shoping cart page")
     this.cart$ = await this.shoppingCartService.getCart();

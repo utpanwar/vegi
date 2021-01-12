@@ -139,6 +139,10 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   //   })
   // }
   // 2. methods
+  async clearCart(){
+    let cartId = await this.getOrCreateCartId();
+    this.db.object('/shopping-carts/'+cartId + '/items').remove();
+  }
   private async updateItemQuantity(product : Product,change : number)
   { 
     let cartId = await this.getOrCreateCartId();
