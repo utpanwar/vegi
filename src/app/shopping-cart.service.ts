@@ -150,7 +150,15 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
         if(quantity == 0) itemRef.remove();
         else itemRef.update({quantity: quantity})
       }
-      else itemRef.set({product:product.$value, quantity:1});
+      else itemRef.set({
+        
+        title : product.$value.title,
+        imageUrl : product.$value.imageUrl,
+        price : product.$value.price,
+        quantity : 1,
+        // product:product.$value,
+        //  quantity:1
+      });
     })
   }
       
