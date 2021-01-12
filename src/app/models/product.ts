@@ -1,5 +1,9 @@
 export interface Product
 {
   $key:string;
-  $value:any;
+  categery : string;
+  imageUrl :string;
+  price : number;
+  title : string;
+    
 }

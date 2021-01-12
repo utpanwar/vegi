@@ -24,6 +24,7 @@ export class ProductService implements OnDestroy {
   // } 
   getAll() {
     let ref= this.db.list('/product').snapshotChanges();
+    return this.db.list('/product').valueChanges();
     // let ref1= this.db.list('/shopping-carts/'+'-M8QvjNaV7ev2eoB_ZPt').snapshotChanges();
     // // let ref2= this.db.list('/product').snapshotChanges();
     // ref1.subscribe(x =>{ console.log(x); console.log("go")});
@@ -38,10 +39,14 @@ export class ProductService implements OnDestroy {
       // })))).subscribe(x => console.log(x));
     // like in .sub we have payload and key in each object inside the Array
     // now extract exact data with set theese two property
-     return  ref.pipe(map(changes => changes.map(c => ({
-        $key: c.payload.key, $value: c.payload.val()
-      }))));
-    //  ref1.pipe(map(c => ({
+    //  return  ref.pipe(map(changes => changes.map(c => ({
+    //     $key: c.payload.key, $value: c.payload.val()
+    //   }))));
+      ref2.subscribe(x => console.log(x));
+      return  ref.pipe(map(changes => changes.map(c => ({
+         $key: c.payload.key, $value: c.payload.val()
+       }))));
+      //  ref1.pipe(map(c => ({
     //   $key: c.payload.key, $value: c.payload.val()
     //   // console.log("ji");
       

@@ -101,12 +101,12 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
     
      
   async addToCart(product : Product){   //here we add the cart to firebase
-    this.updateItemQuantity(product,1);
+    this.updateItem(product,1);
   }
   
   async removeFromCart(product : Product)
   {
-    this.updateItemQuantity(product,-1);
+    this.updateItem(product,-1);
   }
 
   // private async updateItemQuantity(product : Product,change : number)
@@ -139,7 +139,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   //   })
   // }
   // 2. methods
-  private async updateItemQuantity(product : Product,change : number)
+  private async updateItem(product : Product,change : number)
   { 
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
@@ -150,7 +150,14 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
         if(quantity == 0) itemRef.remove();
         else itemRef.update({quantity: quantity})
       }
-      else itemRef.set({product:product.$value, quantity:1});
+      else{
+        itemRef.set({
+          title : product.title,
+          imageUrl : product.imageUrl,
+          price : product.price,
+          quantity : 1,
+          });
+      } 
     })
   }
       

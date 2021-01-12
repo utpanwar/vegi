@@ -1,3 +1,4 @@
+import { Product } from './../models/product';
 import { ShoppingCart } from './../models/shopping-cart';
 
                   //  it takes component for the category and the bootstrap cart
@@ -22,7 +23,7 @@ import { Subscription } from 'rxjs';
 export class ProductsComponent   {
 
   // product$: any;
-  products=[];
+  products : Product[] = [];
   filteredProducts=[];
   // categories$ : any;
   category: any;
@@ -38,20 +39,36 @@ export class ProductsComponent   {
   {
     
     console.log("%c i am product.ts component","color:blue; font-size:13px");
+    // this.productService.getAll().pipe(
+    // switchMap(products => {
+    //   this.products=products;
+    //   return route.queryParamMap;
+    // }))
+    //   .subscribe(params => 
+    //    { this.category = params.get('category');
+    //      console.log(this.category);
+    //     this.filteredProducts = (this.category) ?
+    //     this.products.filter(p => p.$value.category === this.category) :
+    //     this.products
+    //     console.log(this.filteredProducts);
+    //     console.log(this.category);
+    //   });
+
+
     this.productService.getAll().pipe(
-    switchMap(products => {
-      this.products=products;
-      return route.queryParamMap;
-    }))
-      .subscribe(params => 
-       { this.category = params.get('category');
-         console.log(this.category);
-        this.filteredProducts = (this.category) ?
-        this.products.filter(p => p.$value.category === this.category) :
-        this.products
-        console.log(this.filteredProducts);
-        console.log(this.category);
-      });
+      switchMap((products :any) => {
+        this.products=products;
+        console.log(products);
+        return route.queryParamMap;
+      }))
+        .subscribe( (params) => {
+                             this.category = params.get('category');
+                              console.log(this.category);
+                     this.filteredProducts = (this.category) ?
+                  this.products.filter(p => p.categery === this.category) : this.products
+                  console.log(this.filteredProducts);
+                  console.log(this.category);
+        });
       
      
     // here we have two asyn call so we dont know which one is executed first so shows blank page on 
