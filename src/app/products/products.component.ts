@@ -38,27 +38,39 @@ export class ProductsComponent   {
   {
     
     console.log("%c i am product.ts component","color:blue; font-size:13px");
-    this.productService.getAll().pipe(
-    switchMap(products => {
-      this.products=products;
-      return route.queryParamMap;
-    }))
-      .subscribe(params => 
-       { this.category = params.get('category');
-         console.log(this.category);
-        this.filteredProducts = (this.category) ?
-        this.products.filter(p => p.$value.category === this.category) :
-        this.products
-        console.log(this.filteredProducts);
-        console.log(this.category);
-      });
+    
+      // .subscribe(params => 
+      //  { 
+        
+      // });
       
-     
+   
     // here we have two asyn call so we dont know which one is executed first so shows blank page on 
     // startup product array is empty we solve this with the switchMap operator
 
 
    }
+   private populateProducts(){
+    this.productService.getAll().pipe(
+      switchMap(products => {
+        this.products=products;
+        return this.route.queryParamMap;
+      }))
+      .subscribe(params => {
+        this.category = params.get('category');
+         console.log(this.category);
+         this.applyFilter();
+      })
+   }
+
+   private applyFilter(){
+    this.filteredProducts = (this.category) ?
+    this.products.filter(p => p.$value.category === this.category) :
+    this.products;
+    console.log(this.filteredProducts);
+    console.log(this.category);
+   }
+    
   //  OK, first of all ngOnInit is part of Angular lifecycle hook it is called after the componet tree and 
   // onChange() hook
   //ngOninit call after the component tree is created or it is called after default changedetectection() hook
@@ -90,7 +102,7 @@ export class ProductsComponent   {
       console.log("this cart data comes from product OnInit in last because they subscribe it");
       // console.log(this.cart);
       console.log("end ONINIT of product.component.ts");
-    
+     this.populateProducts();
    }
   //  getCart return object of shoppingCart class so we deorate this in to shoppingCart
 
