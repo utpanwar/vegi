@@ -144,7 +144,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
               {
                 console.log(item.payload.val()['quantity']);
                 itemRef.remove();
-                console.log("C");
+
               }
           });
       }
