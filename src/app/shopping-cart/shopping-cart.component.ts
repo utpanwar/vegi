@@ -18,6 +18,8 @@ export class ShoppingCartComponent implements OnInit,OnDestroy {
     console.log(" ONINIT OF SHOPPING-CART handle data inside the table or caleed shoping cart page")
     this.cart$ = await this.shoppingCartService.getCart();
     console.log(this.cart$);
+    // let a = this.cart$;
+    // a.subscribe(x => console.log("a",x));
     console.log("ONINIT OF SHOPPING-CART shopping cart page data ends")
   }
   ngOnDestroy()

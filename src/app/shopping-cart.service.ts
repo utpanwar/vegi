@@ -78,19 +78,15 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 //   );
 //   return cart;
 // }
-  private async getOrCreateCartId() //to create a cartid or acceess the cartid 
-  {
+  private async getOrCreateCartId(){ //to create a cartid or acceess the cartid 
+  
     let cartId = localStorage.getItem('cartId'); //to create a cartid or acceess the cartid 
-    if(cartId) 
-    {
-      return cartId;
-    }
+    if(cartId)  return cartId;
     this.id = await this.db.list('/shopping-carts/').snapshotChanges()
                         .pipe(take(1)).toPromise();
     //  console.log(this.id);
     //  console.log(this.cartIdFire);
-    if(this.id && this.id.length!=0)
-    {
+    if(this.id && this.id.length!=0){
       // console.log(this.id[1].key);
       localStorage.setItem('cartId',this.id[0].key);
       return this.id[0].key;     
@@ -126,33 +122,38 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   // }
 
 
+  // private async updateItemQuantity(product : Product,change : number)
+  // { we can remove item without adding then method see above 2 method
+  //   let cartId = await this.getOrCreateCartId();
+  //   let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+  //   let item$ = itemRef.snapshotChanges();
+  //   item$.pipe(take(1)).subscribe(item=>{
+  //     if(item.payload.exists()){
+  //       itemRef.update({quantity: item.payload.val()['quantity']+change})
+  //       .then(x => {
+  //           if(item.payload.val()['quantity'] -1 == 0 && change == -1){
+  //               itemRef.remove();
+  //             }});
+  //     }
+  //     else itemRef.set({product:product.$value, quantity:1});
+  //   })
+  // }
+  // 2. methods
   private async updateItemQuantity(product : Product,change : number)
-  {
+  { 
     let cartId = await this.getOrCreateCartId();
     let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
     let item$ = itemRef.snapshotChanges();
     item$.pipe(take(1)).subscribe(item=>{
-      if(item.payload.exists())
-      {
-        console.log("A");
-        itemRef.update({quantity: item.payload.val()['quantity']+change})
-        .then(x => 
-          {
-            console.log("HELLOLLLL");
-            console.log(item.payload.val()['quantity']);
-            if(item.payload.val()['quantity'] -1 == 0 && change == -1) 
-              {
-                console.log(item.payload.val()['quantity']);
-                itemRef.remove();
-
-              }
-          });
+      if(item.payload.exists()){
+        let quantity = (item.payload.val()['quantity']) + change;
+        if(quantity == 0) itemRef.remove();
+        else itemRef.update({quantity: quantity})
       }
-      else
-      {
-        itemRef.set({product:product.$value, quantity:1});
-        console.log("B");
-      } 
+      else itemRef.set({product:product.$value, quantity:1});
+    })
+  }
+      
 
       // if(item.payload.exists())
       // {
@@ -164,10 +165,21 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       //   }
        
       // }
-    })
-  }
-
-
+     
+      // private async updateItemQuantity(product : Product,change : number)
+      // {
+      //   this is working fine but if initial nothing in the cart this can not able to add
+      //   nothing without set the path because upddate method does not able to this.createpaths
+      //   so we we have implement set method also other removing also works fine
+      //   let cartId = await this.getOrCreateCartId();
+      //   let itemRef = this.db.object('/shopping-carts/'+cartId+'/items/'+product.$key);
+      //   let item$ = itemRef.snapshotChanges();
+      //   item$.pipe(take(1)).subscribe(item=>{
+      //       let quantity = (item.payload.val()['quantity'] || 0) + change;
+      //       if(quantity === 0) itemRef.remove();
+      //       else itemRef.update({quantity: (item.payload.val()['quantity'] || 0)+change});
+      //   })
+      // }
 
 /*
 
