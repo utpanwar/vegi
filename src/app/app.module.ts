@@ -68,6 +68,7 @@ import { ArrayPipe } from './pipes/unwrapArrOfjsonObj.pipe';
     NgbModule,
     RouterModule.forRoot([
       { path :'' , component : ProductsComponent} ,
+      { path :'home' , component : HomeComponent} ,
       { path : "products" , component :ProductsComponent} ,
       { path : "shopping-cart", component: ShoppingCartComponent} ,
       { path : 'login', component: LoginComponent } ,

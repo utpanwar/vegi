@@ -8,6 +8,7 @@ import { Component, OnDestroy } from '@angular/core';
 export class LoginComponent implements OnDestroy {
 
   constructor(private auth : AuthService) {
+    console.log('const of login');
    }
 
 

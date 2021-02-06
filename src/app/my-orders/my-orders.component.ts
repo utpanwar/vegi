@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyOrdersComponent implements OnInit {
 
-  constructor() { }
+  constructor() 
+  { console.log('cons of my-orders'); }
 
   ngOnInit() {
   }

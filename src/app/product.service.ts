@@ -1,13 +1,13 @@
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable, OnDestroy } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map,switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService implements OnDestroy {
 
-  constructor(private db : AngularFireDatabase) { }
+  constructor(private db : AngularFireDatabase) { console.log('cons of product service');}
   
 
   create(product)
@@ -41,6 +41,9 @@ export class ProductService implements OnDestroy {
      return  ref.pipe(map(changes => changes.map(c => ({
         $key: c.payload.key, $value: c.payload.val()
       }))));
+    //  return  ref.pipe(map(changes => changes.map(c => ({
+    //     $key: c.payload.key, $value: c.payload.val()
+    //   }))));
     //  ref1.pipe(map(c => ({
     //   $key: c.payload.key, $value: c.payload.val()
     //   // console.log("ji");

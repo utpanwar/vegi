@@ -12,12 +12,12 @@ export class ProductFilterComponent  {
 
   constructor(private categoryService : CategoryService) 
   {
-    console.log("%ci am child 1 prod-filter of product.ts component","color:blue; font-size:13px");
+    // console.log("%ci am child 1 prod-filter of product.ts component","color:blue; font-size:13px");
     this.categories$=this.categoryService.getCategories();
   }
   
 ngOnDestroy() {
-  console.log("%c i prod-filter.ts destroy","color:red; font-size:13px");
+  // console.log("%c i prod-filter.ts destroy","color:red; font-size:13px");
   
 }
 

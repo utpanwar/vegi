@@ -23,9 +23,12 @@ export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
   // cart$ : Observable<ShoppingCart>;
   constructor( private auth: AuthService,
-              public shopingService:ShoppingCartService) 
-  {
-    console.log("i am bs-navbar component");
+               public shopingService: ShoppingCartService) {
+    // console.log("i am bs-navbar component");4
+    console.log('const of bs-navbar');
+    // this.auth.check()
+    // .subscribe(x => console.log(x));
+    //  console.log("check");
   }
   logout()
   {
@@ -36,9 +39,11 @@ export class BsNavbarComponent implements OnInit {
     //Called after the constructor, initializing input properties,
     //  and the first call to ngOnChanges.
     // Add 'implements OnInit' to the class.
-    this.auth.appUser$.subscribe(appUser => this.appUser = appUser); // Subscribing here to avoid
+    console.log('ngoninit of bs-navbar');
+    this.auth.appUser$.subscribe(appUser => {this.appUser = appUser; 
+      console.log('subs in ngoninit in bs-navbar')}); // Subscribing here to avoid
     //  using the async pipe in the html template that causes infinite loop
-    console.log("Triggered Oninit by bs-navbar.cop.ts")
+    // console.log("Triggered Oninit by bs-navbar.cop.ts")
     // this.cart$ = await this.shopingService.getCart();
     // what is await working here ?
     // await is working like a .then in promise as we hover on the getRtlScrollAxisType() methd
@@ -46,6 +51,9 @@ export class BsNavbarComponent implements OnInit {
     // Observable<ShoppingCart>; . now await converts the promise into (consume or unwrap or map )
     // like the .then method
     // console.log("bs-oninit"+" " +this.cart$);
-    console.log("ONINIT OF bs-navbar page data ends")
+    // console.log("ONINIT OF bs-navbar page data ends")
+    // this.auth.check()
+    // .subscribe(x => console.log(x));
+    // console.log("check");
   }
 }

@@ -27,11 +27,11 @@ export class ProductsComponent   {
   // categories$ : any;
   category: any;
   // cart : ShoppingCart;
-  subscribe :Subscription;
+  subscribe: Subscription;
   // while constructor is part of ES6 JavaScript class
   // const should be used for only DI, it is creater first while the component tree is created all the const are
   // initialized
-  constructor(private productService : ProductService, 
+  constructor(private productService: ProductService, 
               private categoryService : CategoryService,
               private route :ActivatedRoute ,
               public shoppingCartService :ShoppingCartService) 
@@ -58,7 +58,7 @@ export class ProductsComponent   {
       }))
       .subscribe(params => {
         this.category = params.get('category');
-         console.log(this.category);
+        //  console.log(this.category);
          this.applyFilter();
       })
    }
@@ -67,8 +67,8 @@ export class ProductsComponent   {
     this.filteredProducts = (this.category) ?
     this.products.filter(p => p.$value.category === this.category) :
     this.products;
-    console.log(this.filteredProducts);
-    console.log(this.category);
+    // console.log(this.filteredProducts);
+    // console.log(this.category);
    }
     
   //  OK, first of all ngOnInit is part of Angular lifecycle hook it is called after the componet tree and 
@@ -93,15 +93,15 @@ export class ProductsComponent   {
    async ngOnInit(){
      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
      //Add 'implements OnInit' to the class.
-     console.log("Triggered ONINIT by product.component.ts");
+    //  console.log("Triggered ONINIT by product.component.ts");
     //  this.subscribe= (await this.shoppingCartService.getCart()).subscribe(cart => {this.cart = cart;
       // The ngOnInit() hooks only once after all directives are instantiated.
       //  If you have subscription insidengOnInit() 
       //  and it's not unsubscribed then it will run again if the subscribed data changes
       // console.log(cart)
-      console.log("this cart data comes from product OnInit in last because they subscribe it");
+      // console.log("this cart data comes from product OnInit in last because they subscribe it");
       // console.log(this.cart);
-      console.log("end ONINIT of product.component.ts");
+      console.log(" ONINIT of product.component.ts");
      this.populateProducts();
    }
   //  getCart return object of shoppingCart class so we deorate this in to shoppingCart

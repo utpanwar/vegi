@@ -17,8 +17,8 @@ export class ProductCartComponent implements OnInit,OnDestroy {
  @Input('shopping-cart') shoppingCart; // it is the data comes from the  service backend
   constructor(private cartService : ShoppingCartService)
    {
-    console.log("%c i am child 2 prod.cart of product.ts component",
-    "color:blue; font-size:13px");
+    // console.log("%c i am child 2 prod.cart of product.ts component",
+    // "color:blue; font-size:13px");
   }
 
  addToCart()
@@ -39,14 +39,14 @@ export class ProductCartComponent implements OnInit,OnDestroy {
     ngOnInit()
     {
       //  console.log("ONINIT OF product-cart.ts call from means parent of this ");
-      var style = 
-      'color: tomato; background:#eee; -webkit-text-stroke: 1px black; font-size:13px;';
+      // var style = 
+      // 'color: tomato; background:#eee; -webkit-text-stroke: 1px black; font-size:13px;';
       //  console.log("%cparent cy -> = product.ts->product-cart.ts",style);
     }
 
  ngOnDestroy()
   {
-  console
-  .log("%ci prod-cart.ts going to destroy","color:red; font-size:13px");
+  // console
+  // .log("%ci prod-cart.ts going to destroy","color:red; font-size:13px");
   }
 }

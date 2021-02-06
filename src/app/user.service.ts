@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  constructor(private db : AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) { console.log('const of user.serice')}
 
-  save( user : firebase.User)
+  save( user: firebase.User)
   {
     this.db.object('/users/' + user.uid).update({
       name : user.displayName,
@@ -23,8 +23,7 @@ export class UserService {
   // {
   //   return this.db.object('/user/' + uid);
   // }
-  
-  get(uid: string): Observable<AppUser> {
+  get(uid ?: string): Observable<AppUser> {
     return this.db.object<AppUser>('/users/' + uid).valueChanges();
   }
 }

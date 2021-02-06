@@ -18,9 +18,10 @@ export class ProductFormComponent implements OnInit {
              private productService : ProductService,
              private route : ActivatedRoute,
              private router :Router) {
-    this.category$ = categoryService.getCategories();
+    this.category$ = this.categoryService.getCategories();
                   
     this.id = this.route.snapshot.paramMap.get('id');
+    console.log("id",this.id);
      if(this.id)
      {
       //  this.productService.get(this.id).pipe(take(1)).subscribe(p => this.product = p.payload.val());
@@ -32,6 +33,9 @@ export class ProductFormComponent implements OnInit {
        console.log(this.id+" error in productform com coming from get");
      } 
    }
+
+
+   
    save(product)
    {
      if(this.id) this.productService.update(this.id,product);

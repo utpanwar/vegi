@@ -3,36 +3,38 @@ import { async } from '@angular/core/testing';
 import { Product } from './models/product';
 import { AngularFireDatabase, AngularFireObject, SnapshotAction } from '@angular/fire/database';
 import { Injectable , OnInit} from '@angular/core';
-import {take ,map} from 'rxjs/operators'
+import {take, map} from 'rxjs/operators'
 import { Observable, of } from 'rxjs';
 import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService 
-{
-  subscribe :Subscription;
-  dart : any;
-  id :any;
+export class ShoppingCartService {
+  subscribe: Subscription;
+  dart: any;
+  id: any;
   // cartIdFire : SnapshotAction<unknown>[];
-  cartIdFire : any;
-  cart : ShoppingCart;
-  cart$ : Observable<ShoppingCart>;
-  carttmp : Observable<ShoppingCart>;
-  constructor(private db: AngularFireDatabase) 
-  {
+  cartIdFire: any;
+  cart: ShoppingCart;
+  cart$: Observable<ShoppingCart>;
+  carttmp: any;
+  constructor(private db: AngularFireDatabase) {
     // this.carttmp =  this.getCart().then(result => this.cart$ = result);
     // this.cart$.subscribe(res => this.cart = res);
     this.first();
+    console.log('cons of shoping servie');
   }
   private async first()
   {
-    this.carttmp = await this.getCart().then(result => this.cart$ = result);  
-    this.cart$.subscribe(res => this.cart = res);
+    console.log('cons metod of shoping servie first');
+    this.carttmp = await this.getCart()
+    .then((result: any) => {this.cart$ = result;
+                            console.log('cons then in first of shoping servie'); });
+    this.cart$.subscribe(res => {this.cart = res;
+                                 console.log('cons subs in first of shoping servie'); });
   }
-  private  create()
-  { // push method return the promise  so we are able to await it 
+  private  create() { // push method return the promise  so we are able to await it 
     return this.db.list('/shopping-carts').push({
       dateCreated : new Date().getTime()
       });
@@ -46,7 +48,7 @@ private getItem(cartId: string, productId: string)
 async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebase
   {    let cartId =  await this.getOrCreateCartId();
        let ref=  this.db.object('/shopping-carts/' + cartId);
-       let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log("getcart()",x));
+      //  let ref1=  this.db.object('/shopping-carts/' + cartId).snapshotChanges().subscribe(x => console.log("getcart()",x));
        return ref.snapshotChanges()
        .pipe(map( (x : any) =>
        { 
@@ -92,7 +94,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
       return this.id[0].key;     
     } 
       let result =  await this.create();    //here we call create method to create a cartid and store it in local storage
-      console.log(result);
+      // console.log(result);
       localStorage.setItem('cartId' ,result.key);
       // console.log("hi");
       return  result.key;
@@ -120,6 +122,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
   //     if(item.payload.exists() && item.payload.val()['quantity']==0) itemRef.remove();
   //   })
   // }
+  
 
 
   // private async updateItemQuantity(product : Product,change : number)
@@ -216,7 +219,7 @@ async getCart() : Promise<Observable<ShoppingCart>>//to read cartid from firebas
 */
  ngOnInit()
  {
-   console.log("NGON");
+   console.log("NGng oninit of shopping service ");
    this.cart$.subscribe(res => this.cart = res);
  }
   }

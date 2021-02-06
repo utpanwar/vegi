@@ -11,24 +11,36 @@ import { AppUser } from './models/app-user';
   providedIn: 'root'
 })
 export class AuthService {
-  user$ : Observable<firebase.User>;
+  user$: Observable<firebase.User>;
   constructor(
-              private afAuth : AngularFireAuth , 
-              private route : ActivatedRoute,
-              private userService : UserService,
-              private router : Router
-              ){
-                 this.user$=afAuth.authState;
+              private afAuth: AngularFireAuth,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              private router: Router
+              ) {
+                 this.user$ = afAuth.authState;
+                 let user$2=afAuth.authState.subscribe(x => console.log('sub in cons of auth'));
+                //  debugger;
+                 console.log('const of auth.service');
                }
-   login()
-   {
+   login() {
       let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+      console.log(returnUrl);
       localStorage.setItem('returnUrl' , returnUrl) ;
       this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
    }
-
-   logout()
-   {
+   
+   check() {
+   return new Observable(subscriber => {
+    // subscriber.next(1);
+    // subscriber.next(2);
+    // subscriber.next(3);
+    setTimeout(() => {
+      subscriber.next(Math.random());
+    }, 0);
+  });
+}
+   logout() {
     this.afAuth.signOut();
    }
 
@@ -48,5 +60,4 @@ export class AuthService {
       })
     );
   }
-   
 }
