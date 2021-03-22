@@ -1,7 +1,8 @@
 <form>
     <div class="form-group">
         <label for="user">Username</label><br>
-        <input type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
+        <input required type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
+        <div class="alert alert-danger" *ngIf="!user.valid && user.touched">Please enter the name</div>
     </div>
     <div>
         <label for="pass">Password</label><br>
