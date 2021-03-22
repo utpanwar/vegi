@@ -1,22 +1,58 @@
 <form>
     <div class="form-group">
         <label for="user">Username</label><br>
-        <input required minlength=3 maxlength=10 pattern="thuma" type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
-        <div class="alert alert-danger" *ngIf="!user.valid && user.touched">
-            <div *ngIf="user.errors.required">Please enter the name</div>
-            <div *ngIf="user.errors.minlength">name length should be min {{user.errors.minlength.requiredLength}} charenter</div>
-            <div *ngIf="user.errors.maxlength">name length should be max 10 charenter</div>
-            <div *ngIf="user.errors.pattern">name should be follow the pattern</div>
+        <input
+         required 
+         minlength=3
+         maxlength=10 
+         pattern="thuma" 
+         ngModel
+         name="user"
+         #user="ngModel"
+         type="text"
+         id="user" 
+         value="Thuma"  
+         (change)="log(user)"
+         class="form-control">
+         
+        <div 
+          class="alert alert-danger" 
+          *ngIf="!user.valid && user.touched">
+            <div *ngIf="user.errors.required">
+                Please enter the name
+            </div>
+            <div *ngIf="user.errors.minlength">
+                name length should be min {{user.errors.minlength.requiredLength}} charenter
+            </div>
+            <div *ngIf="user.errors.maxlength">
+                name length should be max 10 charenter
+            </div>
+            <div *ngIf="user.errors.pattern">
+                name should be follow the pattern
+            </div>
         </div>
     </div>
     <div>
-        <label for="pass">Password</label><br>
+        <label for="pass">
+            Password
+        </label><br>
         <input type="password" id="pass"><br><br><br>
-        <textarea name="fill something" id="" cols="30" rows="10" class="">Type Something here.....</textarea>
+        <textarea 
+         name="fill something" 
+         id="" cols="30" rows="10" 
+         class="">
+         Type Something here.....
+        </textarea>
     </div> <br>
     <div>
-    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>   
-    <button (click) = "login()"class="btn btn-primary">Login with google</button>
+    <button type="submit" value="Submit" 
+      class="btn btn-primary">
+      Submit
+    </button>   
+    <button (click) = "login()"
+     class="btn btn-primary">
+     Login with google
+    </button>
     </div>
 </form>
 
