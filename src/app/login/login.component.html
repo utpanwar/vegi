@@ -1,8 +1,13 @@
 <form>
     <div class="form-group">
         <label for="user">Username</label><br>
-        <input required type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
-        <div class="alert alert-danger" *ngIf="!user.valid && user.touched">Please enter the name</div>
+        <input required minlength=3 maxlength=10 pattern="thuma" type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
+        <div class="alert alert-danger" *ngIf="!user.valid && user.touched">
+            <div *ngIf="user.errors.required">Please enter the name</div>
+            <div *ngIf="user.errors.minlength">name length should be min 3 charenter</div>
+            <div *ngIf="user.errors.maxlength">name length should be max 10 charenter</div>
+            <div *ngIf="user.errors.pattern">name should be follow the pattern</div>
+        </div>
     </div>
     <div>
         <label for="pass">Password</label><br>
