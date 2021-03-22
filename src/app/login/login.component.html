@@ -70,7 +70,7 @@ that is ngSubmit -->
          id="contactMethod">
          <option value=""></option>
          <option 
-          *ngFor="let method of contactMethod" [value]="method">
+          *ngFor="let method of contactMethod" [ngValue]="method">
           {{method.name}}
          </option>
         </select>
