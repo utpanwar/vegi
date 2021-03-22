@@ -1,7 +1,7 @@
 <form>
     <div class="form-group">
         <label for="user">Username</label><br>
-        <input type="text" id="user" value="Thuma" ngModel name="user" class="form-control">
+        <input type="text" id="user" value="Thuma" ngModel name="user" #user="ngModel" (change)="log(user)" class="form-control">
     </div>
     <div>
         <label for="pass">Password</label><br>

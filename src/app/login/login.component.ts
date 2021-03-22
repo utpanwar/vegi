@@ -10,7 +10,10 @@ export class LoginComponent implements OnDestroy {
   constructor(private auth : AuthService) {
    }
 
-
+log(x)
+{
+  console.log(x);
+}
  login()
  {
     this.auth.login();
