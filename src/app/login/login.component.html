@@ -75,6 +75,19 @@ that is ngSubmit -->
          </option>
         </select>
     </div>
+
+    <div class="radio">
+        <label>
+            <input ngModel type="radio" name="radioMethod" value="1">
+            Phone
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input ngModel type="radio" name="radioMethod" value="2">
+            Email
+        </label>
+    </div>
     <p>
         {{f.value | json}}
     </p>
