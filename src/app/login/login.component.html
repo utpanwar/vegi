@@ -3,7 +3,11 @@ single form-control of angular not bootstrap(form -c)
 should  have FORMGROUP this form group 
 is by default applied by ngForm angular in form
 attribute under the runtime -->
-<form>
+
+<!-- ngForm also have a property through
+which we can send data to events
+that is ngSubmit -->
+<form #f="ngForm" (ngSubmit) = "Submit(f)">
     <div class="form-group">
         <label for="user">Username</label><br>
         <input
