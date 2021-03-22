@@ -7,9 +7,11 @@ import { Component, OnDestroy } from '@angular/core';
 })
 export class LoginComponent implements OnDestroy {
 
-  constructor(private auth : AuthService) {
-   }
-
+  contactMethod = [
+    {id : 1, name : 'Email'},
+    {id : 2, name : 'Phone'},
+    {id : 3, name : 'Address'}
+  ]
   log(x)
   {
     console.log(x);

@@ -60,6 +60,21 @@ that is ngSubmit -->
            Subscribe the mailling box
         </label>
     </div>
+
+    <div class="form-group">
+        <label for="" id="contactMethod">Contact method</label>
+        <select 
+         ngModel
+         name="Contactmthod" 
+         class="form-control" 
+         id="contactMethod">
+         <option value=""></option>
+         <option 
+          *ngFor="let method of contactMethod" [value]="method.id">
+          {{method.name}}
+         </option>
+        </select>
+    </div>
     <p>
         {{f.value | json}}
     </p>
